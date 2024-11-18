@@ -5,10 +5,19 @@ import { AiOutlineClose } from "react-icons/ai";
 import MenuItems from "./MenuItems";
 import { useEffect, useState, useContext } from "react";
 // import { bookContext } from "./bookcontext";
-import { bookContext } from "./bookcondext"
+import { bookContext } from "./bookcondext";
 
 function Menue({ model, setModel }) {
+
+
   const { cartItem, setCartItem } = useContext(bookContext);
+
+
+
+
+
+
+
 
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("theme") === "dark";
@@ -28,6 +37,8 @@ function Menue({ model, setModel }) {
     setCartItem(cartItem.filter((item) => item.id !== id));
   };
 
+
+
   const handleQuantityChange = (id, newQuantity) => {
     setCartItem(
       cartItem.map((item) =>
@@ -36,11 +47,16 @@ function Menue({ model, setModel }) {
     );
   };
 
+
+
   const subtotal = cartItem.reduce((total, item) => {
-    const price = parseFloat(item?.price ?? 0);
-    const quantity = parseInt(item?.quantity ?? 1, 10);
+    const price = parseFloat(item?.price);
+    const quantity = parseInt(item?.quantity, 10);
     return total + price * quantity;
   }, 0);
+
+  console.log(`Subtotal: $${subtotal.toFixed(2)}`);
+
 
   return (
     <>

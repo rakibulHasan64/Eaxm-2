@@ -2,10 +2,13 @@
 import { RiDeleteBin5Line } from "react-icons/ri";
 
 
-function MenuItems({ item, onDelete, onQuantityChange }) {
+function MenuItems({ item, onDelete, onQuantityChange, }) {
   const { id, name, author, price, quantity, image } = item;
 
   const totalPrice = price * quantity;
+  console.log(totalPrice);
+  
+
 
   return (
     <tr className="bg-[#171923] border-b dark:bg-gray-800 dark:border-gray-700 text-white dark:hover:bg-gray-600">
@@ -17,12 +20,12 @@ function MenuItems({ item, onDelete, onQuantityChange }) {
             alt={name}
           />
           <div className="ml-3">
-            <span>{name || "No Name Available"}</span>
-            <p>{author || "Unknown Author"}</p>
+            <span>{item.name}</span>
+            <p>{item.author}</p>
           </div>
         </div>
       </th>
-      <td className="px-6 py-4">${price}</td>
+      <td className="px-6 py-4">{item.price}</td>
       <td className="px-6 py-4">
         <button
           onClick={() => onQuantityChange(id, quantity - 1)}
@@ -31,7 +34,7 @@ function MenuItems({ item, onDelete, onQuantityChange }) {
         >
           -
         </button>
-        <span className="px-3">{quantity}</span>
+        <span className="px-3">{item.quantity}</span>
         <button
           onClick={() => onQuantityChange(id, quantity + 1)}
           className="px-2 py-1 text-xl bg-slate-400 rounded-r-md"

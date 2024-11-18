@@ -3,12 +3,26 @@ import Contanier from "./Contanier"
 import Fotter from "./Fotter"
 import { initialBookData } from "./data/initialBookData"
 import { bookContext } from "./bookcondext"
+
 function App() {
 
   const [taskitem, setTaskitem] = useState(initialBookData());
   const [model, setModel] = useState(false);
-
   const [cartItem, setCartItem] = useState([]);
+  const [isFavorite, setIsFavorite] = useState([]);
+
+
+
+
+  const handleLove = (item) => {
+    setIsFavorite((prevFavorites) => {
+
+      if (prevFavorites.find(fav => fav.id === item.id)) {
+        return prevFavorites.filter(fav => fav.id !== item.id);
+      }
+      return [...prevFavorites, item];
+    });
+  };
 
 
 
@@ -30,6 +44,9 @@ function App() {
         newData
       ]);
     }
+
+
+
   }
 
 
@@ -38,14 +55,18 @@ function App() {
     taskitem,
     setTaskitem,
     cartItem,
-    setCartItem
+    setCartItem,
+    isFavorite,
+    setIsFavorite
+
 
   }
 
   return (
     <bookContext.Provider value={providerValue}>
-      <Contanier onAdd={handleAddToCart} setTaskitem={setTaskitem} taskitem={taskitem} model={model} setModel={setModel} />
+      <Contanier onlove={handleLove} onAdd={handleAddToCart} model={model} setModel={setModel} />
       <Fotter />
+
     </bookContext.Provider>
 
 

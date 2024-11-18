@@ -1,14 +1,16 @@
 
 /* eslint-disable react/prop-types */
+
 import All from "./All";
 import Menue from "./Menue";
 
 
 
 
-function Contanier({ model, setModel, onAdd }) {
 
-  // const { taskitem, setTaskitem } = useContext(bookContext);
+function Contanier({ model, setModel, onAdd, onlove }) {
+
+
 
 
   return (
@@ -17,7 +19,7 @@ function Contanier({ model, setModel, onAdd }) {
         <div className="">
           <div className="container mx-auto">
             <Menue model={model} setModel={setModel} />
-            <All onAdd={onAdd} />
+            <All onAdd={onAdd} onlove={onlove} />
 
 
           </div>

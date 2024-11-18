@@ -4,14 +4,16 @@ import { useState } from 'react';
 import { MdFavoriteBorder } from "react-icons/md";
 import { HiOutlineHeart } from "react-icons/hi";
 
-function Medle({ items, onAdd }) {
+function Medle({ items, onAdd, onlove }) {
   const { image } = items;
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
 
-  const handleClick = () => {
-    setIsFavorite(!isFavorite);
-  };
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [isAdded, setIsAdded] = useState(false); // Add to cart state
+  const handlerkk = () => {
+    onlove(items);
+  }
+
 
   const handlePopup = () => {
     setShowPopup(!showPopup);
@@ -20,14 +22,14 @@ function Medle({ items, onAdd }) {
   // Function to handle Add to cart
   const handleAddToCart = () => {
     onAdd(items);
+    setIsAdded(true); 
+    
     setShowPopup(false);
   };
 
-
-
   return (
     <>
-      <section className="">
+      <section className="mt-4">
         <div className="border rounded-lg p-4 shadow-2xl">
           <img
             onClick={handlePopup}
@@ -44,14 +46,14 @@ function Medle({ items, onAdd }) {
           </div>
           <div className="flex justify-center items-center text-lg font-bold mt-4">
             <button
-              onClick={handlePopup}
+              onClick={handleAddToCart}
               className="ml-2 w-full bg-[#00D991] text-black px-4 py-2 rounded hover:bg-blue-600"
             >
-              {items.price} <span>| Add to cart </span>
+              {isAdded ? "Added to Cart" : `${items.price} | Add to Cart`}
             </button>
-            <span onClick={handleClick} className="ml-4 p-3 border rounded-md cursor-pointer text-2xl">
-              <HiOutlineHeart className={`${isFavorite ? "bg-red-500" : "text-[#00D991]"}`} />
-            </span>
+            <button onClick={handlerkk} className="ml-4 p-3 border rounded-md cursor-pointer text-2xl text-green-700">
+              <HiOutlineHeart />
+            </button>
           </div>
         </div>
 
@@ -63,21 +65,25 @@ function Medle({ items, onAdd }) {
                 <h1 className="text-[48px] font-semibold">
                   Prenlter Prestion Pssquik
                 </h1>
-                <p className=' mt-[12px] text-[18px] font-semibold'>Comedy/Drama</p>
-                <p className='mt-[34px] text-[15px] tracking-wide'>
+                <p className="mt-[12px] text-[18px] font-semibold">Comedy/Drama</p>
+                <p className="mt-[34px] text-[15px] tracking-wide">
                   When I Feel Alone is a deeply introspective story that explores themes of isolation, connection, and healing. Through these journeys, readers are reminded of the importance of reaching out and finding support in others.
                 </p>
                 <div className="flex justify-center items-center w-[494px]">
                   {/* Add to cart button inside popup */}
-                  <button onClick={handleAddToCart} className="w-full py-2 text-white bg-[#00D991] mt-[28px] rounded-sm">
-                    {items.price} <span>| Add to cart</span>
+                  <button
+                    onClick={handleAddToCart}
+                    className="w-full py-2 text-white bg-[#00D991] mt-[28px] rounded-sm"
+                  >
+                    {isAdded ? "Added to Cart" : `${items.price} | Add to Cart`}
                   </button>
                   <span className="ml-4 px-3 py-2 mt-5 mr-[39px] text-center border rounded-md text-[#00D991] text-2xl">
                     <MdFavoriteBorder />
                   </span>
                   <button
-                    className="mt-4 mr-[31px]  bg-white text-black px-4 py-2 rounded"
-                    onClick={handlePopup}>
+                    className="mt-4 mr-[31px] bg-white text-black px-4 py-2 rounded"
+                    onClick={handlePopup}
+                  >
                     Close
                   </button>
                 </div>
